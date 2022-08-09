@@ -13,4 +13,56 @@ export const getAllUsers = async () => {
     console.log(err);
     return [];
   }
-}
+};
+
+export const createUser = async (
+  firstName: string,
+  lastName: string,
+  email: string,
+  mobileNumber: string
+) => {
+  await axios.post(
+    BASE_URL + "users",
+    {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      mobile_number: mobileNumber,
+    },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+};
+
+export const deleteUser = async (id: string) => {
+  await axios.delete(BASE_URL + "users", {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: { id: id },
+  });
+};
+
+export const editUser = async (
+  id: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  mobileNumber: string
+) => {
+  const body = {
+    id: id,
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    mobile_number: mobileNumber,
+  };
+  await axios.put(BASE_URL + "users", body, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+};

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import AddUser from "./AddUser";
 import { getAllUsers } from "./api/UserApi";
+import "./App.css";
+import User from "./User";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -21,15 +24,21 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="App">
       {loading && <p>Loading ...</p>}
+      <AddUser />
+
       {!loading && (
         <>
           {data.map((user) => (
-            <p key={user["_id"]}>Name: {`${user["first_name"]} ${user["last_name"]}`}<br/>
-              Email: {user["email"]}<br/>
-              Mobile: {user["mobile_number"]}
-            </p>
+            <User
+              key={user["_id"]}
+              id={user["_id"]}
+              firstName={user["first_name"]}
+              lastName={user["last_name"]}
+              email={user["email"]}
+              mobileNumber={user["mobile_number"]}
+            />
           ))}
         </>
       )}
