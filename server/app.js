@@ -5,13 +5,13 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-const mongoDBUrl = "mongodb://localhost:27017/test";
+const mongoDBUrl = "mongodb://mongo:27017/test";
 mongoose.connect(mongoDBUrl);
 const mongoDBConnection = mongoose.connection;
 mongoDBConnection.on('error', console.error.bind(console, 'MongoDB connection error'));

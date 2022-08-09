@@ -1,6 +1,38 @@
 services:
   mongo:
     hostname: mongo
+    container_name: mongo
     image: mongo
     ports:
       - '27017:27017'
+    networks:
+      - bridge_network
+    volumes:
+      - mongo_volume:/data/db
+
+  server:
+    build: ./server
+    container_name: express-server
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    networks:
+      - bridge_network
+
+  client:
+    build: ./client
+    container_name: react-client
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    networks:
+      - bridge_network
+
+networks:
+  bridge_network:
+    driver: bridge
+
+volumes:
+  mongo_volume:
